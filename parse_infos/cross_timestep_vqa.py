@@ -185,20 +185,17 @@ class CrossTimestepVQA:
         
         # 构建选项字典
         options = {}
-        distractor_answers = []  # 收集所有不对应的选项
+        correct_answer = ''  # 记录正确答案
         option_labels = ['A', 'B', 'C', 'D']
         
         for i, (img_path, (source_type, timestep)) in enumerate(zip(option_images, option_sources)):
             label = option_labels[i]
             options[label] = f"BEV image {i+1}"
-            if source_type == 'distractor':
-                distractor_answers.append(label)
-        
-        # 从 3 个不对应的选项中随机选择一个作为正确答案
-        correct_answer = random.choice(distractor_answers)
+            if source_type == 'target':
+                correct_answer = label
         
         # 构建问题
-        question = f"Given the directional view, which BEV (bird's-eye view) does NOT correspond to this view?"
+        question = f"Given the directional view, which BEV (bird's-eye view) corresponds to this view?"
         
         result = {
             'question': question,
