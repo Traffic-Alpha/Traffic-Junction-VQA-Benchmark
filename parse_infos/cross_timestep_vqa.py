@@ -419,7 +419,7 @@ class CrossTimestepVQA:
         ref2_path = self.all_timesteps_data[ref_timestep_2][target_direction]['image_path']
         
         # 构建问题
-        question = f"Given two reference images from {ref_timestep_1} and {ref_timestep_2}, which of the following images occurred between these two timesteps?"
+        question = "Given two reference images from the start and end times, which of the following images occurred between these two time points?"
         
         result = {
             'question': question,
