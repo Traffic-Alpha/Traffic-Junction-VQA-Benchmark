@@ -1,0 +1,19 @@
+# Traffic VQA Benchmark Requirements
+# Python 3.8+
+
+# Core dependencies (usually pre-installed)
+# json (built-in)
+# os (built-in)
+# random (built-in)
+# re (built-in)
+
+# Optional dependencies for visualization and analysis
+# Pillow>=9.0.0  # For image handling in example scripts
+# numpy>=1.20.0  # For data analysis
+
+# Testing dependencies
+openai>=1.0.0  # For VQA benchmark testing with OpenAI API
+
+# Note: The core VQA generation code only uses Python built-in libraries
+# No external dependencies are required for basic functionality
+

@@ -1,0 +1,219 @@
+{
+  "test_time": "2025-12-19 15:14:26",
+  "models": [
+    "GPT-4o"
+  ],
+  "comparison": {
+    "GPT-4o": {
+      "results": [
+        {
+          "question": "How many incoming lanes are there in total?",
+          "predicted_answer": "D: 3",
+          "predicted_option": "D",
+          "correct_option": "D",
+          "answer_text": "There are a total of 3 incoming lanes.",
+          "options": {
+            "A": "5",
+            "B": "2",
+            "C": "1",
+            "D": "3"
+          },
+          "is_correct": true,
+          "category": "Road Infrastructure",
+          "subtask": "Counting",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "How many outgoing lanes are there in total?",
+          "predicted_answer": "C: 4",
+          "predicted_option": "C",
+          "correct_option": "B",
+          "answer_text": "There are a total of 3 outgoing lanes.",
+          "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "1"
+          },
+          "is_correct": false,
+          "category": "Road Infrastructure",
+          "subtask": "Counting",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "How many vehicles are there in total on the incoming and outgoing lanes, considering visibility?",
+          "predicted_answer": "D: 5-9",
+          "predicted_option": "D",
+          "correct_option": "A",
+          "answer_text": "Camera detects 2 vehicles total. incoming road: 1 clear vehicles nearby, 0 somewhat visible vehicles further out, and approximately 1 faint vehicles in the distance. Note: The vehicles are leaving the incoming lanes due to green light. Vehicles that have left the lane markings are not counted. Note: Distant vehicles may be less accurate due to limited visibility.",
+          "options": {
+            "A": "0-4",
+            "B": "10-14",
+            "C": "15-19",
+            "D": "5-9"
+          },
+          "is_correct": false,
+          "category": "Vehicle Analysis",
+          "subtask": "Counting",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "How many vehicles are there in the incoming direction, considering visibility?",
+          "predicted_answer": "Based on the image, the correct option is B: 0-4. There are three visible vehicles in the incoming direction.",
+          "predicted_option": "B",
+          "correct_option": "B",
+          "answer_text": "Total 2 vehicles across 3 incoming lanes. Lane 1 (from left to right): empty; Lane 2 (from left to right): 1 clear vehicles; Lane 3 (from left to right): ~1 very faint vehicles. Note: (1) The vehicles are leaving the incoming lanes due to green light. Vehicles that have left the lane markings are not counted; (2) Distant vehicles may be less accurate.",
+          "options": {
+            "A": "5-9",
+            "B": "0-4",
+            "C": "15-19",
+            "D": "10-14"
+          },
+          "is_correct": true,
+          "category": "Vehicle Analysis",
+          "subtask": "Counting",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "How many vehicles are there in the outgoing direction, considering visibility?",
+          "predicted_answer": "The correct option is A: 2-6.",
+          "predicted_option": "A",
+          "correct_option": "B",
+          "answer_text": "No vehicles detected on outgoing lanes.",
+          "options": {
+            "A": "2-6",
+            "B": "0-1",
+            "C": "7-11",
+            "D": "12-16"
+          },
+          "is_correct": false,
+          "category": "Vehicle Analysis",
+          "subtask": "Counting",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "Does the image contain any emergency vehicles such as police cars, ambulances, or fire trucks?",
+          "predicted_answer": "B: No",
+          "predicted_option": "B",
+          "correct_option": "B",
+          "answer_text": "No, there are no emergency vehicles in the image.",
+          "options": {
+            "A": "Yes",
+            "B": "No"
+          },
+          "is_correct": true,
+          "category": "Special Vehicles",
+          "subtask": "Existence",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "Is there any traffic accident or obstruction visible in the image?",
+          "predicted_answer": "B: No",
+          "predicted_option": "B",
+          "correct_option": "B",
+          "answer_text": "No, there are no visible traffic accidents or obstructions.",
+          "options": {
+            "A": "Yes",
+            "B": "No"
+          },
+          "is_correct": true,
+          "category": "Special Events",
+          "subtask": "Existence",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "What type of emergency vehicle is shown in the image, and where is it located?",
+          "predicted_answer": "B: None",
+          "predicted_option": "B",
+          "correct_option": "B",
+          "answer_text": "There are no emergency vehicles visible in the image.",
+          "options": {
+            "A": "Fire truck",
+            "B": "None",
+            "C": "Police car",
+            "D": "Ambulance"
+          },
+          "is_correct": true,
+          "category": "Special Vehicles",
+          "subtask": "Recognition",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "What types of traffic accidents or obstructions are visible in the image?",
+          "predicted_answer": "A: None",
+          "predicted_option": "A",
+          "correct_option": "A",
+          "answer_text": "There are no visible traffic accidents or obstructions blocking the road.",
+          "options": {
+            "A": "None",
+            "B": "Vehicle collision",
+            "C": "Fallen tree",
+            "D": "Safety barrier"
+          },
+          "is_correct": true,
+          "category": "Special Events",
+          "subtask": "Recognition",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        },
+        {
+          "question": "Which lane are the emergency vehicles located in?",
+          "predicted_answer": "C: None",
+          "predicted_option": "C",
+          "correct_option": "C",
+          "answer_text": "There are no emergency vehicles visible in the incoming lanes.",
+          "options": {
+            "A": "Lane 1",
+            "B": "Lane 2",
+            "C": "None",
+            "D": "Lane 3"
+          },
+          "is_correct": true,
+          "category": "Special Vehicles",
+          "subtask": "Localization",
+          "task": "Single Image",
+          "image_path": "/mnt/petrelfs/wangmaonan/share_multimodal_traffic/multimodal_traffic/Beijing_Changjianglu/Beijing_Changjianglu_easy_fluctuating_commuter_barrier/535/high_quality_rgb/0.png"
+        }
+      ],
+      "metrics": {
+        "overall_accuracy": 0.7,
+        "correct_count": 7,
+        "total_count": 10,
+        "single_image_accuracy": 0.7,
+        "single_image_count": 10,
+        "multi_image_accuracy": 0,
+        "multi_image_count": 0,
+        "category_accuracy": {
+          "Road Infrastructure": {
+            "correct": 1,
+            "total": 2,
+            "accuracy": 0.5
+          },
+          "Vehicle Analysis": {
+            "correct": 1,
+            "total": 3,
+            "accuracy": 0.3333333333333333
+          },
+          "Special Vehicles": {
+            "correct": 3,
+            "total": 3,
+            "accuracy": 1.0
+          },
+          "Special Events": {
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        }
+      }
+    }
+  }
+}
