@@ -2,12 +2,12 @@
 Author: WANG Maonan
 Date: 2025-12-29
 Description: 从生成的 VQA 问题中采样，创建 benchmark 数据集
-示例：
+Example of usage:
 python quick_sample_benchmark.py \
     --source_root /path/to/source \
     --output_root /path/to/output \
     --timestep_start 200 \
-    --timestep_end 600 \
+    --timestep_end 550 \
     --random_seed 123
 '''
 import argparse

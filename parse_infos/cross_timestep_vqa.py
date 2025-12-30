@@ -375,12 +375,15 @@ class CrossTimestepVQA:
         elif len(after_timesteps) == 1:
             distractor_timesteps.append(after_timesteps[0])
         
-        # 如果干扰项不够3个，从所有不在区间内且不是参考点的 timesteps 中补充
+        # 如果干扰项不够 3 个，从所有不在区间内且不是参考点的 timesteps 中补充
         if len(distractor_timesteps) < 3:
-            available = [t for t in self.timestep_keys 
-                        if t not in [correct_timestep, ref_timestep_1, ref_timestep_2] 
-                        and t not in distractor_timesteps
-                        and t not in between_timesteps]
+            available = [
+                t for t in self.timestep_keys 
+                if int(t) <= 600
+                and t not in [correct_timestep, ref_timestep_1, ref_timestep_2] 
+                and t not in distractor_timesteps
+                and t not in between_timesteps
+            ]
             if available:
                 needed = 3 - len(distractor_timesteps)
                 distractor_timesteps.extend(random.sample(available, min(needed, len(available))))

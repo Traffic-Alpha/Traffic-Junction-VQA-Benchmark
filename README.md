@@ -173,31 +173,11 @@ scene_name/
 
 ---
 
-### 步骤2：采样Benchmark数据集
+### 步骤2：采样 Benchmark 数据集
 
-使用 `quick_sample_benchmark.py` 从生成的 VQA 问题中采样，构建标准化的 Benchmark 数据集。
+#### 2.1 配置问题数目
 
-#### 2.1 配置路径
-
-编辑 `quick_sample_benchmark.py`，设置源数据路径和输出路径：
-
-```python
-# 配置路径
-source_root = "/path/to/your/scene/data"  # VQA 数据源根目录
-output_root = "/path/to/benchmark_dataset"  # benchmark 输出目录
-
-# 创建生成器
-generator = BenchmarkGenerator(
-    source_root=source_root,
-    output_root=output_root,
-    timestep_range=(100, 550),  # 采样的 timestep 范围
-    random_seed=42              # 随机种子，保证可复现
-)
-```
-
-#### 2.2 采样配置
-
-脚本内置了标准的采样配置，根据问题类型定义采样数量：
+使用 `quick_sample_benchmark.py` 从生成的 VQA 问题中采样，构建标准化的 Benchmark 数据集。脚本内置了标准的采样配置，根据问题类型定义采样数量：
 
 ```python
 sampling_config = {
@@ -211,13 +191,20 @@ sampling_config = {
 
 您可以根据需要修改每个问题类型的采样数量。
 
-#### 2.3 运行采样脚本
+#### 2.2 运行采样脚本
+
+自定义输入目录和输出目录：
 
 ```bash
-python quick_sample_benchmark.py
+python quick_sample_benchmark.py \
+    --source_root /path/to/source \
+    --output_root /path/to/output \
+    --timestep_start 200 \
+    --timestep_end 550 \
+    --random_seed 123
 ```
 
-#### 2.4 采样结果
+#### 2.3 采样结果
 
 脚本会在 `output_root` 目录下生成：
 
@@ -236,12 +223,6 @@ benchmark_dataset/
 └── ...
 ```
 
-**特点**：
-- ✅ 按问题类型分类保存为独立的 JSONL 文件
-- ✅ 自动复制相关图片到 `images/` 目录
-- ✅ 更新图片路径为相对路径
-- ✅ 平衡采样（如存在性问题会平衡"有"和"没有"的样本）
-
 ---
 
 ### 步骤3：可视化和验证
@@ -258,18 +239,7 @@ python quick_visualize_vqa_data.py benchmark_dataset
 
 #### 3.2 查看可视化结果
 
-**使用本地 HTTP 服务器**：
-
-```bash
-cd benchmark_dataset
-python -m http.server 8000
-```
-
-然后在浏览器中访问：`http://localhost:8000/vqa_visualization.html`
-
-**简单方式**：
 直接双击 `vqa_visualization.html` 文件在浏览器中打开（某些浏览器可能因安全策略限制图片显示）。
-
 
 #### 3.3. 打包数据集下载
 
@@ -283,19 +253,7 @@ zip -r traffic_vqa_benchmark.zip benchmark_dataset/
 zip -r traffic_vqa_data_only.zip benchmark_dataset/*.jsonl benchmark_dataset/*.html
 ```
 
-#### 3.5 可视化特性
-
-HTML 页面包含以下功能：
-
-- 🎨 **美观界面**：紫色渐变主题，卡片式布局
-- 🖼️ **图片展示**：直接显示 VQA 图片，支持悬停放大
-- 📊 **统计面板**：显示数据集整体统计信息
-- 📚 **目录导航**：快速跳转到任意问题类型
-- ✅ **高亮答案**：正确选项以绿色标记
-- 🔝 **返回顶部**：浮动按钮快速返回页面顶部
-- 📱 **响应式设计**：自适应不同屏幕尺寸
-
-#### 3.6 人工验证检查清单
+#### 3.4 人工验证检查清单
 
 在可视化页面中，重点检查以下内容：
 
