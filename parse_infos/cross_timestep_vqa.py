@@ -52,8 +52,8 @@ class CrossTimestepVQA:
         # 从目标 timestep 的方向中选择 3 个（如果超过 3 个就选 3 个）
         selected_directions = random.sample(target_directions, 3)
         
-        # 从其他 timesteps 中选择 1 个作为不对应的选项
-        other_timesteps = [t for t in self.timestep_keys if t != target_timestep]
+        # 从其他 timesteps 中选择 1 个作为不对应的选项（限制最大值为600）
+        other_timesteps = [t for t in self.timestep_keys if t != target_timestep and int(t) <= 600]
         if not other_timesteps:
             return {'question': '', 'options': {}, 'correct_answer': '', 'images': []}
         
@@ -151,8 +151,8 @@ class CrossTimestepVQA:
         direction_num = target_direction.split('_')[1]
         view_path = target_data[target_direction]['image_path']
         
-        # 选择 3 个其他 timesteps 作为不对应的选项
-        other_timesteps = [t for t in self.timestep_keys if t != target_timestep]
+        # 选择 3 个其他 timesteps 作为不对应的选项（限制最大值为600）
+        other_timesteps = [t for t in self.timestep_keys if t != target_timestep and int(t) <= 600]
         if len(other_timesteps) < 3:
             return {'question': '', 'options': {}, 'correct_answer': '', 'images': []}
         
