@@ -598,59 +598,12 @@ traffic_vqa_benchmark/
 
 ---
 
-## 🔧 安装依赖
-
-### 基础依赖
-
-```bash
-# 克隆项目
-cd /path/to/traffic_vqa_benchmark
-
-# 安装 Python 依赖
-pip install -r requirements.txt
-```
-
-### 测试工具依赖
-
-如需使用模型测试工具，额外安装：
-
-```bash
-pip install openai -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-### 依赖说明
-
-- **Python 3.8+**：项目基于 Python 3.8 及以上版本
-- **标准库**：大部分功能只依赖 Python 标准库（json, pathlib, argparse 等）
-- **OpenAI SDK**：仅用于模型测试（可选）
-
----
-
-## 📚 更多文档
-
-- [`README_CN.md`](README_CN.md) - 中文版项目说明（详细版本）
-- [`README_VISUALIZATION.md`](README_VISUALIZATION.md) - 可视化工具详细说明
-- [`QUICK_START_WITH_IMAGES.md`](QUICK_START_WITH_IMAGES.md) - 图片显示快速指南
-- [`VQA_TOOLS_SUMMARY.md`](VQA_TOOLS_SUMMARY.md) - VQA 工具集总结
-- [`benchmark_test/README.md`](benchmark_test/README.md) - 模型测试工具说明
-
----
-
-## 📄 许可证
-
-请根据您的需求添加适当的许可证。
-
----
-
 ## 👥 贡献者
 
 - WANG Maonan
-
----
-
-## 📮 联系方式
-
-如有问题或建议，请联系项目维护者。
+- JIANG Kemou
+- ZOU Xinchen
+- HUANG ZhengYan
 
 ---
 
