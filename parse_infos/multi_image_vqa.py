@@ -118,6 +118,7 @@ class MultiImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents',
         ]
         
         question = "These images are captured by cameras at an intersection, each showing a different incoming direction. Which direction has the most vehicles, only considering the vehicles in the incoming lanes? Please provide the image index."
@@ -418,6 +419,7 @@ class MultiImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents',
         ]
         
         question = f"These images are captured by cameras at an intersection, each showing a different incoming direction. The phase information is as follows:\n{self.phaseInfo}\nWhich traffic phase has the most vehicles waiting? Please provide the phase number."

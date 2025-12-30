@@ -206,6 +206,7 @@ class SingleImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents'
         ]
         
         # Check if incoming lane has green light
@@ -375,6 +376,7 @@ class SingleImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents'
         ]
         
         # Check if incoming lane has green light
@@ -543,6 +545,7 @@ class SingleImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents'
         ]
         
         # Check if incoming lane has green light
@@ -783,6 +786,7 @@ class SingleImageVQA:
             'barrier_A', 'barrier_B', 'barrier_C', 'barrier_D', 'barrier_E',
             'tree_branch_1lane', 'tree_branch_3lanes',
             'pedestrian', 'crash_vehicle_1lane', 'crash_vehicle_3lanes',
+            'other_accidents'
         ]
         
         question = "Is there any traffic accident or obstruction visible in the image?"

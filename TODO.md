@@ -23,6 +23,7 @@
 - [x] bev to directions, directions to bev, 这里修改为不相关的是
 - [x] 单图问题的时候，生成特定车道上有多少车辆
 - [x] 时序问题的时候，出现两位数和三位数 timestep 混合在一起
+- [] 统计车辆的时候去除 other other_accidents
 
 ## Sample VQA 需要加上
 
