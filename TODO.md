@@ -25,7 +25,7 @@
 - [x] 时序问题的时候，出现两位数和三位数 timestep 混合在一起
 - [x] 统计车辆的时候去除 other other_accidents
 - [] 超过 600 的不要作为选项
-- [] 相邻的信息不要加上具体的 timestep
+- [x] 时间相邻的 QA 不要在问题中加上具体的 timestep
 
 ## Sample VQA 需要加上
 

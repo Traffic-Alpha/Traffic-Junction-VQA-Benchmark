@@ -46,7 +46,7 @@ class CrossTimestepVQA:
         
         # 获取目标 timestep 的所有方向
         target_directions = [k for k in target_data.keys() if k.startswith('direction_')]
-        if len(target_directions) < 3:
+        if len(target_directions) < 3: # 至少有 3 个方向
             return {'question': '', 'options': {}, 'correct_answer': '', 'images': []}
         
         # 从目标 timestep 的方向中选择 3 个（如果超过 3 个就选 3 个）
