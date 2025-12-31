@@ -68,8 +68,7 @@ class VQADatasetGenerator:
             timestep_spatial_mcq = self._generate_spatial_mcq_for_timestep(
                 timestep, all_timesteps_data, num_questions=4
             )
-            
-            # 将跨时间空间推理问题添加到多图VQA中
+
             multi_image_vqa_with_spatial = multi_image_vqa + timestep_spatial_mcq
             
             # 4. 保存结果
@@ -80,7 +79,7 @@ class VQADatasetGenerator:
             
             print(f"  ✓ Generated {sum(len(v) for v in single_image_vqa.values())} single-image VQA pairs")
             print(f"  ✓ Generated {len(multi_image_vqa)} multi-image VQA pairs")
-            print(f"  ✓ Generated {len(timestep_spatial_mcq)} cross-timestep VQA pairs")
+            print(f"  ✓ Generated {len(timestep_spatial_mcq)} cross-timestep spatial VQA pairs")
             print(f"  ✓ Completed timestep: {timestep}\n")
     
     def _get_timesteps(self) -> List[str]:
@@ -309,12 +308,11 @@ class VQADatasetGenerator:
             elif i % 4 == 3:
                 # 生成时间间隔问题
                 mcq = cross_vqa._temporal_between_mcq_for_specific_timesteps(target_timestep, str(int(target_timestep) + 2))
-            
+
             if mcq and mcq.get('question'):  # 只添加有效问题
                 mcq_list.append(mcq)
         
         return mcq_list
-    
 
     # 保存 VQA 结果
     def _save_results(self, timestep_path: str, results: Dict[str, Any]):

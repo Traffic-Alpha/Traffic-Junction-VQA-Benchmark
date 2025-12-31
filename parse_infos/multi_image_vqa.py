@@ -76,7 +76,7 @@ class MultiImageVQA:
         """生成比较类问题 - 比较不同方向的某些属性
         """
         return [
-            self._which_image_has_most_vehicles(),  # 哪个方向车辆最多
+            self._which_image_has_most_vehicles(),    # 哪个方向车辆最多
         ]
     
     def _generate_identification_questions(self):

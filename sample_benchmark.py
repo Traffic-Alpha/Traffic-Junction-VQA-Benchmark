@@ -300,8 +300,8 @@ class BenchmarkGenerator:
             'l2.2_time_q1_temporal_order': 10,
             'l2.2_time_q2_queue_trend': 6,
             'l2.2_time_q3_temporal_between': 10,
-            'l2.2_time_q4_lane_function_multi': 10,
-            'l2.2_time_q5_accident_multi': 0,  # 表格中标记为 -
+            'l2.2_time_q4_lane_function_multi': 0, # 根据车流判断车道功能
+            'l2.2_time_q5_accident_multi': 0,  # 多帧判断事故类型
             
             # L3 Dec - 决策支持
             'l3_dec_q1_phase_most_vehicles': 5,
