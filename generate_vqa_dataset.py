@@ -305,7 +305,7 @@ class VQADatasetGenerator:
                 mcq = cross_vqa._view_to_bev_mcq_for_specific_timestep(target_timestep)
             elif i % 4 == 2:
                 # 生成时间顺序问题
-                mcq = cross_vqa._temporal_order_mcq_for_specific_timestep(target_timestep)
+                mcq = cross_vqa._temporal_order_mcq_for_specific_timestep(target_timestep, interval=2)
             elif i % 4 == 3:
                 # 生成时间间隔问题
                 mcq = cross_vqa._temporal_between_mcq_for_specific_timesteps(target_timestep, str(int(target_timestep) + 2))

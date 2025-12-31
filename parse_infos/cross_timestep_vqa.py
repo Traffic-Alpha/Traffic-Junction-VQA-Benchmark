@@ -216,11 +216,12 @@ class CrossTimestepVQA:
         
         return result
     
-    def _temporal_order_mcq_for_specific_timestep(self, target_timestep: str) -> Dict[str, Any]:
-        """为指定的 timestep 生成时间顺序选择题 - 从该 timestep 开始选择 4 个相邻 timesteps 的相同 view 图片，询问哪个最先发生
+    def _temporal_order_mcq_for_specific_timestep(self, target_timestep: str, interval: int = 1) -> Dict[str, Any]:
+        """为指定的 timestep 生成时间顺序选择题 - 从该 timestep 开始选择 4 个 timesteps 的相同 view 图片，询问哪个最先发生
         
         Args:
-            target_timestep: 目标 timestep（作为4个连续timesteps中的第一个）
+            target_timestep: 目标 timestep（作为4个timesteps中的第一个）
+            interval: timesteps之间的间隔（默认为1表示连续，2表示每隔一个选择一个）
             
         Returns:
             选择题字典
@@ -237,12 +238,14 @@ class CrossTimestepVQA:
         except ValueError:
             return {'question': '', 'options': {}, 'correct_answer': '', 'images': []}
         
-        # 检查是否有足够的后续 timesteps
-        if start_idx + 4 > len(self.timestep_keys):
+        # 检查是否有足够的后续 timesteps（需要考虑间隔）
+        # 对于 4 个 timesteps，需要的最大索引是 start_idx + (4-1) * interval
+        required_end_idx = start_idx + (4 - 1) * interval
+        if required_end_idx >= len(self.timestep_keys):
             return {'question': '', 'options': {}, 'correct_answer': '', 'images': []}
         
-        # 选择从 target_timestep 开始的 4 个连续 timesteps
-        selected_timesteps = self.timestep_keys[start_idx:start_idx + 4]
+        # 选择从 target_timestep 开始的 4 个 timesteps（根据间隔）
+        selected_timesteps = [self.timestep_keys[start_idx + i * interval] for i in range(4)]
         
         # 获取第一个 timestep 的可用方向
         first_timestep_data = self.all_timesteps_data[selected_timesteps[0]]
@@ -294,6 +297,7 @@ class CrossTimestepVQA:
             'earliest_timestep': earliest_timestep,
             'direction': direction_num,
             'timesteps': selected_timesteps,
+            'interval': interval,
             'question_type': 'temporal_order',
             'category': 'Temporal Reasoning',
             'task': 'Cross-Timestep Multi Image',
