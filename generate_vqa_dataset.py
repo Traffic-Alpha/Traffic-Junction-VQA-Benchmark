@@ -160,9 +160,10 @@ class VQADatasetGenerator:
                 direction_num, 
                 {'incoming': 90, 'outgoing': 30}  # 默认值
             )
+
             max_incoming_distance = direction_distances.get('incoming', 90)
             max_outgoing_distance = direction_distances.get('outgoing', 30)
-            
+
             # 加载 annotation 数据
             json_path = os.path.join(annotations_dir, json_file)
             with open(json_path, 'r') as f:

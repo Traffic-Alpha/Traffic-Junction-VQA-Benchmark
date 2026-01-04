@@ -164,7 +164,8 @@ class BenchmarkGenerator:
             # 类型和定位问题只采样有特殊情况的
             elif q_type in ['l1.1_obj_q3_special_vehicle_type', 'l1.1_obj_q5_special_event_type',
                            'l1.2_topo_q8_special_vehicle_lane', 'l1.2_topo_q9_special_event_lane',
-                           'l2.1_view_q2_special_vehicle_location', 'l3_dec_q3_phase_special_vehicle']:
+                           'l2.1_view_q2_special_vehicle_location', 
+                           'l3_dec_q3_phase_special_vehicle', 'l3_dec_q2_phase_accident']:
                 if 'special_vehicle' in q_type or 'vehicle_location' in q_type:
                     available_questions = self.filter.filter_has_special_vehicle(available_questions)
                 else:
@@ -307,7 +308,7 @@ class BenchmarkGenerator:
             'l3_dec_q1_phase_most_vehicles': 5,
             'l3_dec_q2_phase_accident': 5,
             'l3_dec_q3_phase_special_vehicle': 5,
-            'l3_dec_q4_phase_green_light': 5,
+            'l3_dec_q4_phase_green_light': 10,
             'l3_dec_q5_phase_decision': 5,
         }
         

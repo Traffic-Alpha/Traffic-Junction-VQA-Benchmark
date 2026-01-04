@@ -787,6 +787,7 @@ class MultiImageVQA:
 
         # 根据 phase 找到对应的 image index
         image_index = None
+        phase_num = len(self.index2phase) # 总相位数
         for idx, phase in self.index2phase.items():
             if phase == optimal_action:
                 image_index = idx
@@ -802,8 +803,8 @@ class MultiImageVQA:
         # 正确答案是 optimal_action
         correct_option_text = f"Phase {optimal_action}"
         
-        # 生成可能的相位选项（假设有0-3个相位）
-        all_phase_options = [f"Phase {i}" for i in range(3)]
+        # 生成可能的相位选项
+        all_phase_options = [f"Phase {i}" for i in range(phase_num)]
         
         # 生成干扰项
         distractors = [opt for opt in all_phase_options if opt != correct_option_text]
