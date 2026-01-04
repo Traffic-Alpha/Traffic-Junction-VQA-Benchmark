@@ -1,18 +1,19 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-VQA数据可视化工具 - 将JSONL格式转换为美观的HTML页面
-"""
-
+'''
+Author: WANG Maonan
+Date: 2026-01-04 15:30:12
+LastEditors: WANG Maonan
+Description: VQA数据可视化工具 - 将JSONL格式转换为美观的HTML页面
+LastEditTime: 2026-01-04 15:30:14
+'''
 import json
-import os
-from pathlib import Path
-from typing import List, Dict, Any
 import argparse
+import shutil
 
+from pathlib import Path
+from typing import List, Dict, Any, Set
 
 def load_jsonl(file_path: str) -> List[Dict[str, Any]]:
-    """加载JSONL文件"""
+    """加载 JSONL 文件"""
     data = []
     with open(file_path, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, 1):
@@ -25,7 +26,6 @@ def load_jsonl(file_path: str) -> List[Dict[str, Any]]:
                 print(f"   ⚠️ 警告: 第 {line_num} 行解析失败: {e}")
                 continue
     return data
-
 
 def get_task_name(filename: str) -> str:
     """从文件名提取任务名称"""
@@ -536,7 +536,7 @@ def generate_task_html(filename: str, data: List[Dict[str, Any]], task_id: int) 
         view_image = item.get('view_image', '')
         reference_images = item.get('reference_images', [])
         option_images = item.get('option_images', [])
-        
+
         html += f"""
             <div class="qa-item">
                 <div class="question">
@@ -754,12 +754,106 @@ def generate_statistics(all_data: Dict[str, List[Dict[str, Any]]]) -> Dict[str, 
     }
 
 
-def visualize_vqa_dataset(dataset_dir: str, output_file: str = None):
+def collect_image_paths(all_data: Dict[str, List[Dict[str, Any]]]) -> Set[str]:
+    """从数据中收集所有图片路径"""
+    image_paths = set()
+    
+    for data in all_data.values():
+        for item in data:
+            # 收集单个图片路径
+            if 'image_path' in item and item['image_path']:
+                image_paths.add(item['image_path'])
+            
+            # 收集图片列表
+            if 'images' in item and item['images']:
+                for img in item['images']:
+                    if img:
+                        image_paths.add(img)
+            
+            # 收集BEV图片
+            if 'bev_image' in item and item['bev_image']:
+                image_paths.add(item['bev_image'])
+            
+            # 收集View图片
+            if 'view_image' in item and item['view_image']:
+                image_paths.add(item['view_image'])
+            
+            # 收集参考图片
+            if 'reference_images' in item and item['reference_images']:
+                for img in item['reference_images']:
+                    if img:
+                        image_paths.add(img)
+            
+            # 收集选项图片
+            if 'option_images' in item and item['option_images']:
+                for img in item['option_images']:
+                    if img:
+                        image_paths.add(img)
+    
+    return image_paths
+
+
+def copy_images(source_dir: str, target_dir: Path, image_paths: Set[str]):
+    """
+    从源目录复制图片到目标目录
+    
+    Args:
+        source_dir: 源图片目录，用于与JSON中的图片路径拼接
+        target_dir: 目标目录 (dataset_dir/images)，会先删除再重新创建
+        image_paths: JSON中的所有图片路径
+    """
+    source_path = Path(source_dir)
+    
+    if not source_path.exists():
+        print(f"⚠️  警告: 源图片目录不存在: {source_dir}")
+        return
+    
+    # 删除旧的 dataset_dir/images 文件夹
+    if target_dir.exists():
+        print(f"🗑️  删除旧的图片文件夹: {target_dir}")
+        shutil.rmtree(target_dir)
+    
+    # 创建新的 images 文件夹
+    target_dir.mkdir(parents=True, exist_ok=True)
+    print(f"📁 创建图片文件夹: {target_dir}")
+    
+    # 复制图片
+    copied_count = 0
+    failed_count = 0
+    
+    for img_path in image_paths:
+        # 将源目录和JSON中的图片路径拼接
+        image_name = img_path.split('/')[-1]
+        time_stamp = img_path.split('/')[-2]
+        source_file = source_path / time_stamp / 'high_quality_rgb/' / image_name
+        
+        # 目标文件保持相对路径结构
+        target_file = target_dir / time_stamp / image_name
+        
+        # 确保目标文件的父目录存在
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        if source_file.exists():
+            try:
+                shutil.copy2(source_file, target_file)
+                copied_count += 1
+            except Exception as e:
+                print(f"   ⚠️  复制失败 {img_path}: {e}")
+                failed_count += 1
+        else:
+            print(f"   ⚠️  源文件不存在: {source_file}")
+            failed_count += 1
+    
+    print(f"✅ 图片复制完成: 成功 {copied_count} 个, 失败 {failed_count} 个")
+
+
+def visualize_vqa_dataset(dataset_dir: str, source_image_dir: str = None, output_file: str = None):
     """
     可视化VQA数据集
     
     Args:
         dataset_dir: JSONL文件所在目录
+        source_image_dir: 原始图片文件夹路径（可选）
         output_file: 输出HTML文件路径，默认为 dataset_dir/vqa_visualization.html
     """
     dataset_path = Path(dataset_dir)
@@ -784,6 +878,16 @@ def visualize_vqa_dataset(dataset_dir: str, output_file: str = None):
         data = load_jsonl(jsonl_file)
         all_data[filename] = data
         print(f"   ✓ 加载了 {len(data)} 条数据")
+    
+    # 如果提供了源图片目录，复制图片
+    if source_image_dir:
+        print(f"\n📸 开始处理图片...")
+        image_paths = collect_image_paths(all_data)
+        print(f"   找到 {len(image_paths)} 个唯一图片路径")
+        
+        # 目标图片文件夹为 dataset_dir/images
+        target_image_dir = dataset_path / 'images'
+        copy_images(source_image_dir, target_image_dir, image_paths)
     
     # 生成统计信息
     stats = generate_statistics(all_data)
@@ -863,11 +967,14 @@ def main():
   # 可视化benchmark_dataset目录下的所有JSONL文件
   python visualize_vqa_data.py benchmark_dataset
   
+  # 指定原始图片文件夹并复制图片
+  python visualize_vqa_data.py benchmark_dataset -i /path/to/original/images
+  
   # 指定输出文件
   python visualize_vqa_data.py benchmark_dataset -o my_visualization.html
   
-  # 使用绝对路径
-  python visualize_vqa_data.py /path/to/dataset -o /path/to/output.html
+  # 完整示例
+  python visualize_vqa_data.py benchmark_dataset -i original_images -o output.html
         """
     )
     
@@ -875,6 +982,15 @@ def main():
         'dataset_dir',
         type=str,
         help='包含JSONL文件的数据集目录'
+    )
+    
+    parser.add_argument(
+        '-i', '--images',
+        type=str,
+        default=None,
+        dest='source_image_dir',
+        help='原始图片文件夹路径（可选）。如果提供，会先删除 dataset_dir/images 文件夹，'
+             '然后将此路径与JSONL文件中的图片路径拼接，复制图片到 dataset_dir/images 文件夹'
     )
     
     parser.add_argument(
@@ -886,9 +1002,8 @@ def main():
     
     args = parser.parse_args()
     
-    visualize_vqa_dataset(args.dataset_dir, args.output)
+    visualize_vqa_dataset(args.dataset_dir, args.source_image_dir, args.output)
 
 
 if __name__ == '__main__':
     main()
-

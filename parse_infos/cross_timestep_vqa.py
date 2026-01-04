@@ -293,6 +293,7 @@ class CrossTimestepVQA:
             'correct_answer': correct_answer,
             'answer_text': options[correct_answer],
             'images': option_images,
+            'option_images': option_images,
             'target_timestep': target_timestep,
             'earliest_timestep': earliest_timestep,
             'direction': direction_num,
